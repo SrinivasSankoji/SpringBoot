@@ -12,7 +12,7 @@ public interface EmployeeService {
 
 	List<Employee> getAllEmployees();
 
-	Employee getEmployeeById(String empId);
+	Employee getEmployeeById(int empId);
 	
-	void deleteEmployeeById(String empId);
+	void deleteEmployeeById(int empId);
 }

@@ -41,25 +41,22 @@ public class EmployeeController {
 	}
 	
 	@GetMapping(path = "/getEmployeeById/{empId}")
-	public ResponseEntity<Employee> getEmployeeById(@PathVariable("empId") String empId) {
+	public ResponseEntity<Employee> getEmployeeById(@PathVariable("empId") int empId) {
 		final HttpHeaders httpHeaders= new HttpHeaders();
 	    httpHeaders.setContentType(MediaType.APPLICATION_JSON);
 		return new ResponseEntity<Employee>(employeeService.getEmployeeById(empId), httpHeaders, HttpStatus.OK);
 	}
 	
-	@GetMapping(path = "/checkTransactionManagement")
-	public ResponseEntity<String> checkTransactionManagement() throws InvalidInsuranceAmountException {
+	@PostMapping(path = "/checkTransactionManagement")
+	public ResponseEntity<String> checkTransactionManagement(@RequestBody Employee employee) throws InvalidInsuranceAmountException {
 		final HttpHeaders httpHeaders= new HttpHeaders();
 	    httpHeaders.setContentType(MediaType.APPLICATION_JSON);
-	    Employee emp = new Employee();
-		emp.setEmpId("emp1");
-		emp.setEmpName("emp1");
 
 		HealthInsurance healthInsurance = new HealthInsurance();
-		healthInsurance.setEmpId("emp1");
+		healthInsurance.setEmpId(employee.getEmpId());
 		healthInsurance.setHealthInsuranceSchemeName("premium");
-		healthInsurance.setCoverageAmount(0);
-	    organizationService.joinOrganization(emp, healthInsurance);
+		healthInsurance.setCoverageAmount(10);
+	    organizationService.joinOrganizationUnchecked(employee, healthInsurance);
 		return new ResponseEntity<String>("Success", httpHeaders, HttpStatus.OK);
 	}
 }

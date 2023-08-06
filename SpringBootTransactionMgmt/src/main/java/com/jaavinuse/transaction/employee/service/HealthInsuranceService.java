@@ -7,5 +7,5 @@ public interface HealthInsuranceService {
 
 	void registerEmployeeHealthInsurance(HealthInsurance healthInsurance) throws InvalidInsuranceAmountException;
 
-	void deleteEmployeeHealthInsuranceById(String empid);
+	void deleteEmployeeHealthInsuranceById(int empid);
 }

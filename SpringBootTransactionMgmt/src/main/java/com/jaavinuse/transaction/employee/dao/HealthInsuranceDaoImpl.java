@@ -21,7 +21,7 @@ public class HealthInsuranceDaoImpl implements HealthInsuranceDao {
 	}
 
 	@Override
-	public void deleteEmployeeHealthInsuranceById(String empid) {
+	public void deleteEmployeeHealthInsuranceById(int empid) {
 		String sql = "DELETE FROM employeeHealthInsurance WHERE empId = ?";
 		jdbcTemplate.update(sql, new Object[] { empid });
 	}

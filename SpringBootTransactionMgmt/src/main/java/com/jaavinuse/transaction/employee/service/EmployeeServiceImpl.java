@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.jaavinuse.transaction.employee.dao.EmployeeDao;
 import com.jaavinuse.transaction.employee.model.Employee;
@@ -15,6 +16,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 	private EmployeeDao employeeDao;
 
 	@Override
+	@Transactional
 	public void insertEmployee(Employee employee) {
 		employeeDao.insertEmployee(employee);
 	}
@@ -31,13 +33,13 @@ public class EmployeeServiceImpl implements EmployeeService {
 	}
 
 	@Override
-	public Employee getEmployeeById(String empId) {
+	public Employee getEmployeeById(int empId) {
 		Employee employee = employeeDao.getEmployeeById(empId);
 		return employee;
 	}
 
 	@Override
-	public void deleteEmployeeById(String empId) {
+	public void deleteEmployeeById(int empId) {
 		employeeDao.deleteEmployeeById(empId);
 	}
 

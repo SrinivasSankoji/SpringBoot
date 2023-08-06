@@ -2,17 +2,16 @@ package com.jaavinuse.transaction.employee.model;
 
 import java.io.Serializable;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Getter;
+import lombok.Setter;
 
-import lombok.Data;
-
-@Data
+@Getter
+@Setter
 public class Employee implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	
-	@JsonIgnore
-	private String empId;
+	private int empId;
 	private String empName;
 
 }

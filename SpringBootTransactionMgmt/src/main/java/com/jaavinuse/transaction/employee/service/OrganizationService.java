@@ -6,7 +6,9 @@ import com.jaavinuse.transaction.employee.model.HealthInsurance;
 
 public interface OrganizationService {
 
-	public void joinOrganization(Employee employee,HealthInsurance healthInsurance) throws InvalidInsuranceAmountException;;
+	void joinOrganizationChecked(Employee employee,HealthInsurance healthInsurance) throws InvalidInsuranceAmountException;
+	
+	void joinOrganizationUnchecked(Employee employee,HealthInsurance healthInsurance);
 
 	public void leaveOrganization(Employee employee,HealthInsurance healthInsurance);
 }

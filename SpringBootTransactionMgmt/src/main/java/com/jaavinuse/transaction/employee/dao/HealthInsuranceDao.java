@@ -6,6 +6,6 @@ public interface HealthInsuranceDao {
 
 	void registerEmployeeHealthInsurance(HealthInsurance healthInsurance);
 
-	void deleteEmployeeHealthInsuranceById(String empid);
+	void deleteEmployeeHealthInsuranceById(int empid);
 
 }

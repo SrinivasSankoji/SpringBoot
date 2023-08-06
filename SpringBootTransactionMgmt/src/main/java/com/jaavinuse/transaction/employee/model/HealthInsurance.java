@@ -9,7 +9,7 @@ public class HealthInsurance implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	
-	private String empId;
+	private int empId;
 	private String healthInsuranceSchemeName;
 	private int coverageAmount;
 

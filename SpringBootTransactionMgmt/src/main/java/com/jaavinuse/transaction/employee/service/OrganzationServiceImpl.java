@@ -9,33 +9,45 @@ import com.jaavinuse.transaction.employee.model.Employee;
 import com.jaavinuse.transaction.employee.model.HealthInsurance;
 
 @Service
-@Transactional
-public class OrganzationServiceImpl implements OrganizationService{
+public class OrganzationServiceImpl implements OrganizationService {
 
 	@Autowired
 	EmployeeService employeeService;
 
 	@Autowired
 	HealthInsuranceService healthInsuranceService;
-	
+
 	@Override
 	@Transactional(rollbackFor = InvalidInsuranceAmountException.class)
-	public void joinOrganization(Employee employee, HealthInsurance healthInsurance) throws InvalidInsuranceAmountException
-	{
-		employeeService.insertEmployee(employee);
-		//For Unchecked Exception and @Transactioal Annotation works
-		/**if (employee.getEmpId().equals("emp1")) {
-			throw new RuntimeException("thowing exception to test transaction rollback");
-		}**/
+	public void joinOrganizationChecked(Employee employee, HealthInsurance healthInsurance)
+			throws InvalidInsuranceAmountException {
 		try {
+			employeeService.insertEmployee(employee);
 			healthInsuranceService.registerEmployeeHealthInsurance(healthInsurance);
-			} catch (InvalidInsuranceAmountException e) {
+		} catch (InvalidInsuranceAmountException e) {
 			throw new InvalidInsuranceAmountException("Exception is thrown");
-			}
+		}
 	}
 
 	@Override
-	//@Transactional
+	@Transactional
+	/** For Unchecked Exception @Transactioal Annotation works **/
+	public void joinOrganizationUnchecked(Employee employee, HealthInsurance healthInsurance) {
+		employeeService.insertEmployee(employee);
+		//
+		if (employee.getEmpId() == 2) {
+			throw new RuntimeException("thowing exception to test transaction rollback");
+		}
+		try {
+			healthInsuranceService.registerEmployeeHealthInsurance(healthInsurance);
+		} catch (InvalidInsuranceAmountException e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	@Override
+	@Transactional
 	public void leaveOrganization(Employee employee, HealthInsurance healthInsurance) {
 		employeeService.deleteEmployeeById(employee.getEmpId());
 		healthInsuranceService.deleteEmployeeHealthInsuranceById(healthInsurance.getEmpId());

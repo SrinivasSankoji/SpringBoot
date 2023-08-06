@@ -33,7 +33,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
 		jdbcTemplate.batchUpdate(sql, new BatchPreparedStatementSetter() {
 			public void setValues(PreparedStatement ps, int i) throws SQLException {
 				Employee employee = employees.get(i);
-				ps.setString(1, employee.getEmpId());
+				ps.setInt(1, employee.getEmpId());
 				ps.setString(2, employee.getEmpName());
 			}
 
@@ -52,7 +52,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
 		List<Employee> result = new ArrayList<Employee>();
 		for(Map<String, Object> row:rows){
 			Employee emp = new Employee();
-			emp.setEmpId((String)row.get("empId"));
+			emp.setEmpId((int)row.get("empId"));
 			emp.setEmpName((String)row.get("empName"));
 			result.add(emp);
 		}
@@ -62,13 +62,13 @@ public class EmployeeDaoImpl implements EmployeeDao {
 
 	@SuppressWarnings("deprecation")
 	@Override
-	public Employee getEmployeeById(String empId) {
+	public Employee getEmployeeById(int empId) {
 		String sql = "SELECT * FROM employee WHERE empId = ?";
 		return (Employee)jdbcTemplate.queryForObject(sql, new Object[]{empId}, new RowMapper<Employee>(){
 			@Override
 			public Employee mapRow(ResultSet rs, int rwNumber) throws SQLException {
 				Employee emp = new Employee();
-				emp.setEmpId(rs.getString("empId"));
+				emp.setEmpId(rs.getInt("empId"));
 				emp.setEmpName(rs.getString("empName"));
 				return emp;
 			}
@@ -76,7 +76,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
 	}
 
 	@Override
-	public void deleteEmployeeById(String empId) {
+	public void deleteEmployeeById(int empId) {
 		String sql = "DELETE FROM employee WHERE empId = ?";
 		jdbcTemplate.update(sql, new Object[] { empId });
 	}

@@ -3,10 +3,10 @@ server:
   
 spring:
   datasource:
-    url: jdbc:oracle:thin:@localhost:1521:xe
-    username: system
-    password: Bhaumik@23
-    driver-class-name: oracle.jdbc.OracleDriver
+    url: jdbc:sqlserver://localhost:1433;encrypt=true;trustServerCertificate=true;databaseName=smart-school
+    username: sa
+    password: bhaumik@23
+    driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
     hikari:
       minimum-idle: 5
       maximum-pool-size: 10
@@ -22,7 +22,7 @@ spring:
     hibernate:
       ddl-auto: none
     properties:
-      hibernate.dialect: org.hibernate.dialect.Oracle10gDialect 
+      hibernate.dialect: org.hibernate.dialect.SQLServerDialect 
   main:
      allow-bean-definition-overriding: true
     

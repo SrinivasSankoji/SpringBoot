@@ -2,6 +2,7 @@ package com.jaavinuse.transaction.employee.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.jaavinuse.transaction.employee.dao.HealthInsuranceDao;
 import com.jaavinuse.transaction.employee.exception.InvalidInsuranceAmountException;
@@ -14,6 +15,7 @@ public class HealthInsuranceServiceImpl implements HealthInsuranceService{
 	HealthInsuranceDao healthInsuranceDao;
 	
 	@Override
+	@Transactional
 	public void registerEmployeeHealthInsurance(HealthInsurance healthInsurance) throws InvalidInsuranceAmountException {
 		if (healthInsurance.getCoverageAmount() <= 0) {
 			throw new InvalidInsuranceAmountException("Coverage Amount Should not be negative");
@@ -22,7 +24,7 @@ public class HealthInsuranceServiceImpl implements HealthInsuranceService{
 	}
 
 	@Override
-	public void deleteEmployeeHealthInsuranceById(String empId) {
+	public void deleteEmployeeHealthInsuranceById(int empId) {
 		healthInsuranceDao.deleteEmployeeHealthInsuranceById(empId);
 
 	}
